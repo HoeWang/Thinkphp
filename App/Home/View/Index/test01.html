@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	321
+	<?=$name?>
+	<?=$age?>
+	{$age}
+
+	{$list['size']}
+	{$height}
+	{$names}
+
+	<h2>预定义输出变量</h2>
+	{$_GET['id']}
+	{$Think.get.id}
+	{$Think.session.id}
+	{$_SESSION['id']}
+	{$Think.HOST}
+
+	<h2>在模板中使用函数</h2>
+	{$name|md5}
+	{$name|time}
+
+	{:date('Y-m-d',time())}
+
+	<hr>
+	<h2>点语法</h2>
+	{$list.height + 60}
+	{$list['height'] + 60}
+	{/*点语法不支持运算*/}
+
+	<h2>模板偷换</h2>
+	__URL__
+	__ROOT__
+	__MODULE__
+	__URL__
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+[ 2017-10-11T22:22:49+08:00 ] 192.168.111.1 /Think03/Home/Index/yzm.html
+ERR: 非法操作:yzm
+
+[ 2017-10-11T22:36:09+08:00 ] 192.168.111.1 /Think03/Home/
+ERR: Call to undefined function Home\Controller\sendMail()
+
+[ 2017-10-11T22:38:33+08:00 ] 192.168.111.1 /Think03/Home/Index/yzm.html
+ERR: 非法操作:yzm
+
+[ 2017-10-11T22:39:53+08:00 ] 192.168.111.1 /Think03/Home/Index/yzm.html
+ERR: 非法操作:yzm
+
+[ 2017-10-11T22:40:18+08:00 ] 192.168.111.1 /Think03/Home/Index/yzm.html
+ERR: 非法操作:yzm
+

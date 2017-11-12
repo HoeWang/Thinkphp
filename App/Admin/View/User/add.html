@@ -1,0 +1,39 @@
+<extend name="User/index" />
+
+<block name="main">
+	<div class="row-fluid" id="main">
+		<div class="span8 offset2">	
+			<form class="form-horizontal" method="post">
+				<h3>添加用户</h3>
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">用户名</label>
+					<div class="controls">
+						<input type="text" id="name" placeholder="name" name="username">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">密码</label>
+					<div class="controls">
+						<input type="password" placeholder="密码" name="pwd">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">确认密码</label>
+					<div class="controls">
+						<input type="password" placeholder="确认密码" name="pwd2">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<label class="checkbox">
+							&nbsp;
+						</label>
+						<button class="btn btn-large btn-primary form-submit" type="submit">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+						<a class="btn btn-large btn-default" href="{:U('User/index')}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+					</div>
+				</div>
+			</form>			
+		</div>
+	</div>
+</block>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>修改用户</title>
+
+</head>
+<script type="text/javascript" src="__JQ__/jquery.min.js"></script>
+<script type="text/javascript" src="__PUB__/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUB__/bootstrap-3.3.7/css/bootstrap.min.css">
+<body>
+	<div class="container" style="width:300px">
+	<h1>用户修改</h1>
+	<form  method="post">
+			<input  type="hidden" name="id" value="{$res['id']}" />
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">用户名</label>
+		    <input type="text" class="form-control zz-uname" id="exampleInputEmail1" value="{$res['username']}" name="username" disabled>
+		  </div>
+	
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">电话</label>
+		    <input type="text" class="form-control zz-pass" id="exampleInputPassword1" placehoder="{$res['phone']}" name="phone">
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">密码</label>
+		    <input type="password" class="form-control zz-pass" id="exampleInputPassword1" value="{$res['pwd']}" name="pass">
+		  </div>
+
+		  
+		  
+		  
+		  <button type="submit" class="btn btn-default zz-sub">修改</button>
+	</form>
+		
+	</div>
+</body>
+<script type="text/javascript">
+	
+</script>
+</html>

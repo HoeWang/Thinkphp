@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册用户</title>
+
+</head>
+<script type="text/javascript" src="__JQ__/jquery.min.js"></script>
+<script type="text/javascript" src="__PUB__/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUB__/bootstrap-3.3.7/css/bootstrap.min.css">
+<body>
+	<div class="container" style="width:300px">
+	<h1>用户注册</h1>
+	<form  method="post">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">用户名</label>
+		    <input type="text" class="form-control zz-uname" id="exampleInputEmail1" placeholder="Username" name="username">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">密码</label>
+		    <input type="password" class="form-control zz-pass" id="exampleInputPassword1" placeholder="Password" name="pass">
+		  </div>
+		  
+		  
+		  <button type="submit" class="btn btn-default zz-sub">提交</button>
+	</form>
+		
+	</div>
+</body>
+<script type="text/javascript">
+	$('.zz-uname').blur(function(){
+		var val = $('.zz-uname').val();
+		$.ajax({
+			url:"{:U('User/select')}",
+			type:'get',
+			data:'username='+val,
+			async:true,
+			success:function(res){
+				
+				if(res != 0){
+					console.log(res);
+					$('.zz-uname + span').remove();//第一个span标签删除，不够完美因为不知道页面中前面还有没有span标签
+					var span = $('<span style="color:red">'+ res[0].username +'用户名已存在!</span>');
+					$('.zz-uname').after(span);
+					$('.zz-sub').prop('disabled',true);
+				}else{
+					$('.zz-uname + span').remove();
+					var span = $('<span style="color:green">用户名可以使用</span>');
+					$('.zz-uname').after(span);
+					$('.zz-sub').prop('disabled',false);
+				}
+			},
+			error:function(){
+				console.log('miss');
+			}
+
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	312<br>
+	<?=$name?>
+	{$age}
+	{$list['size']}
+	{$list.height}
+
+	<h2>输出预定义变量</h2>
+	{$_GET['id']}
+
+	{$Think.get.id}
+	{$Think.session.id}
+
+	定义好的这两种输出常量都可以
+	{$Think.const.HOST}
+	{$Think.HOST}
+
+	<h2>在模板中使用函数</h2>
+	在模板中使用函数的的两种方法
+	{$name|md5}<br>
+	{$name|time}<br>
+	{:date('Y-m-d',time())}<br>
+
+	<hr>
+	在$name不存在的情况下,赋值
+	{$names|default="老子才是艳辉"}
+
+	<h2>点语法</h2>
+	{$list['height']}<br>
+	{$list.height + 60} //这种不行,会被解析成$list['height +60']<br>
+	{/*点语法不支持运算*/}
+
+	<h2>末班替换</h2>
+	__ROOT__ <br>
+
+	__APP__	<br>
+
+	__MODULE__ <BR>
+
+	__URL__
+
+	<hr>
+	<form action="" method="post" enctype="multipart/form-data">
+		<input type="file" name="pic" />
+		<input type="text" name="yzm" /><img src="{:U('yzm')}" onclick="this.src='{:U('yzm')}'">
+		<button>验证</button>
+
+	<form action="__URL__/doadd"></form>
+
+
+	<form action="__URL__/doadd"></form>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<volist name="list" id="v" offset="5" length="3" empty="$emp">
+		{$v['username']}<br>
+	</volist>	
+	<empty name="lists">
+		暂无数据
+	<else />
+		<foreach name="lists" item="v">
+			{$v['id']}
+		</foreach>
+	</empty>
+
+	<hr>
+
+
+
+
+	<for start="1" end="100">
+		<lt name="i" value="5">
+		
+		<else />
+		{$i} &nbsp;
+		</lt>
+
+		lt  小于
+		gt 	大于
+		eq 	等于
+		egt 大于等于
+		elt 小于等于
+		<if condition="$i egt 5">
+			{$i} &nbsp;
+			<else />
+		</if>
+	</for>
+
+	<php>
+		echo 123;
+	</php>	
+</body>
+</html>

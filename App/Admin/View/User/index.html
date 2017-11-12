@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css" media="screen" />	
+	<link rel="stylesheet" href="__PUBLIC__/Admin/css/style.css" />	
+	<!--响应式特性 css-->	
+	<link href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<!-- jquery -->
+	<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
+	<!-- bootstrap.js -->
+	<script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="row-fluid" id="header">	
+		<div class="span8 offset2">				
+			<h1 class="font">XXX后台</h1>
+			<p class="lead">Bootstrap，来自 Twitter，是目前很受欢迎的前端框架。</p>
+		</div>			
+    </div>
+
+<block name="nav">
+	<div class="row-fluid" id="nav">	
+		<div class="span8 offset2">
+			<ul class="nav nav-pills">
+				<li class="active">
+					<a href="#">首页</a>
+				</li>
+				<li class="dropdown">
+					<a href="#"  class="dropdown-toggle" data-toggle="dropdown" href="#">用户管理<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{:U('User/add')}">添加用户</a></li>
+						<li><a href="{:U('User/index')}">用户列表</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#"  class="dropdown-toggle" data-toggle="dropdown" href="#">商品管理<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">添加商品</a></li>
+						<li><a href="#">商品列表</a></li>
+					</ul>
+				</li>
+				<li><a href="#">分类管理</a></li>
+				<li><a href="#">系统设置</a></li>
+				<li class="dropdown">
+					<a href="#"  class="dropdown-toggle" data-toggle="dropdown" href="#">{$Think.session.adminInfo.username}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">个人中心</a></li>
+						<li><a href="{:U('Login/logout')}">注销</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</block>
+
+<block name="main">
+	<div class="row-fluid" id="main">
+		<div class="span8 offset2">		
+		    <form class="form-search fr">
+		    	<input type="text" name="username" value="{:I('username')}" class="input-medium" placeholder="用户名">
+		    	<select name="sex">
+					<option value="">--请选择--</option>
+					<option {$_GET['sex']==='0'?'selected':''} value="0">女</option>
+					<option {$_GET['sex']==1?'selected':''} value="1">男</option>
+					<option {$_GET['sex']==2?'selected':''} value="2">妖</option>
+				</select>
+		    	<button type="submit" class="btn">搜索</button>
+		    </form>
+
+			<table class="table table-striped" style="width:100%;text-align:center">
+				<thead style="text-align:center">
+				<tr >
+					<th style="width:10%;">ID</th>
+					<th style="width:20%">用户名</th>
+					<th style="width:20%">性别</th>
+					<th style="width:25%">添加时间</th>
+					<th style="width:25%">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				
+				<empty name="list">
+					<tr><td colspan="5"><h3>暂无数据~~~</h3></td></tr>
+				<else />
+				<foreach name="list" item="v">
+					<tr>
+						<td>{$v['id']}</td>
+						<td>{$v.username}</td>
+						<td>{$v['sex']}</td>
+						<td>{$v['addtime']}</td>
+						<td>
+							<a class='btn btn-danger' onclick="del(this, {$v['id']})" href="javascript:void(0);">删除</a>
+							<a class='btn btn-info' href="{:U('edit', ['id'=>$v['id']])}">修改</a>
+						</td>
+					</tr>
+				</foreach>
+				</empty>
+					
+				</tbody>
+			</table>
+			<div class="pagination">
+				<ul>
+					{$btn}
+				</ul>
+			</div>
+			<script>
+				// 假装搞了个样式
+				$('.pagination a,.pagination span').unwrap('<div></div>').wrap('<li></li>');
+
+				function del(obj, id)
+				{
+					var re = confirm('确定删除吗?');
+					if(re){
+					$.post('{:U("ajaxDel")}', 'id='+id, function(res){
+						if (res.status == 1) {
+							$(obj).parent().parent().remove();
+						} else {
+							alert('删除失败');
+						}
+					});
+				}
+				}
+
+				//无刷新分类
+		$('body').delegate('.pagination a','click',function(){
+
+        var url = $(this).attr('href');
+
+        $.ajax({
+            type:'get',
+            url:url,
+            success:function(res){
+            	console.log(res);
+            	btn = res.page;
+            	delete res.page;
+            	console.log(btn);
+            	$('.pagination ul').html(btn);
+            	$('.pagination a,.pagination span').unwrap('<div></div>').wrap('<li></li>');
+            	div="<empty name='list'><tr><td colspan='5'><h3>暂无数据~~~</h3></td></tr><else />";
+
+            	for(var k in res){
+            		div+= "<tr><td>"+ res[k].id +"</td><td>"+ res[k].username +"</td><td>"+ res[k].sex +"</td><td>"+ res[k].addtime +"</td><td><a class='btn btn-danger' onclick='del(this, "+ res[k].id +")' href='javascript:void(0);'>删除</a><a class='btn btn-info' href='{:U('edit', ['id'=>"+ res[k].id +"])}'>修改</a></td></tr>";
+			}
+				div = div + "</empty>";
+            	console.log(div);
+            	$('tbody').html(div);
+  //           
+            }
+        });
+        return false;
+    });
+
+
+			</script>
+		</div>
+	</div>
+</block>
+	
+	<div class="row-fluid" id="footer">	
+		<div class="span8 offset2">				
+			<p>©2006 - 2013</p>				
+		</div>			
+    </div>
+	
+</body>
+</html>
